@@ -10,16 +10,18 @@ const CreateJob = () => {
     const [workTime, setWorkTime] = useState("");
     const [companyName, setCompanyName] = useState("");
     const [deadline, setDeadline] = useState("");
+    const [location, setLocation] = useState("");
 
-    const handleSubmit=async()=>{
+    const handleSubmit=async(e)=>{
+        e.preventDefault();
         const formData ={title, description, category, requirements, workTime, companyName, deadline}
-        await axios.post(`http://localhost:6010/job/addJob`, formData)
+        await axios.post(`http://localhost:8080/job-service/api/jobs`, formData)
         .then((res)=>{
             alert("Success")
             
         }).catch((err)=>{
             alert(err.message)
-            // console.log(err.message)
+            console.log(err.message)
         })
     }
   return (
@@ -52,6 +54,10 @@ const CreateJob = () => {
         <label htmlFor="">Job Deadline</label>
         <input type="text" onChange={(e)=>{
             setDeadline(e.target.value)
+        }}/><br />
+        <label htmlFor="">Job Location</label>
+        <input type="text" onChange={(e)=>{
+            setLocation(e.target.value)
         }}/><br />
         <button onClick={handleSubmit}>Submit</button>
       </form>

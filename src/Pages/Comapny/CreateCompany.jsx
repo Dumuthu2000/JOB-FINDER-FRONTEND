@@ -11,9 +11,11 @@ const CreateCompany = () => {
     const [contactDetails, setContactDetails] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [backImage, setBackImage] = useState("");
+    const [profileImage, setProfileImage] = useState("");
 
     const handleSubmit=async()=>{
-        const formData ={companyName, description, location, industry, establishedDate, contactDetails, email, password}
+        const formData ={companyName, description, location, industry, establishedDate, contactDetails, email, password, backImage, profileImage}
         await axios.post(`http://localhost:8080/company-service/api/company`, formData)
         .then((res)=>{
             alert("Success")
@@ -56,6 +58,14 @@ const CreateCompany = () => {
         <label htmlFor="">Password:</label>
         <input type="password" onChange={(e)=>{
             setPassword(e.target.value)
+        }}/><br />
+        <label htmlFor="">Cover Photo:</label>
+        <input type="password" onChange={(e)=>{
+            setBackImage(e.target.value)
+        }}/><br />
+        <label htmlFor="">Profile Pic:</label>
+        <input type="password" onChange={(e)=>{
+            setProfileImage(e.target.value)
         }}/><br />
         <button onClick={handleSubmit}>Submit</button>
       </form>

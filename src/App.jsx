@@ -5,6 +5,7 @@ import CreateJob from './Pages/Job/CreateJob'
 import CreateCompany from './Pages/Comapny/CreateCompany'
 import CompanyLogin from './Pages/Login/CompanyLogin/CompanyLogin'
 import CompanyProfile from './Pages/CompanyProfile/CompanyProfile'
+import JobUpdateModel from './components/Model/JobUpdateModel'
 
 function App() {
   return (
@@ -12,12 +13,13 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Home/>}/>
-          <Route path='/createJob' element={<CreateJob/>}/>
+          <Route path='/job/createJob' element={<CreateJob/>}/>
           <Route path='/company/createCompany' element={<CreateCompany/>}/>
           <Route path='/company/login' element={<CompanyLogin/>}/>
           <Route path='/company/profile' element={<CompanyProfile/>}/>
         </Routes>
       </BrowserRouter>
+      {/* <JobUpdateModel/> */}
     </div>
   )
 }

@@ -14,7 +14,7 @@ const CreateJob = () => {
 
     const handleSubmit=async(e)=>{
         e.preventDefault();
-        const formData ={title, description, category, requirements, workTime, companyName, deadline}
+        const formData ={title, description, category, requirements, workTime, companyName, deadline, location}
         await axios.post(`http://localhost:8080/job-service/api/jobs`, formData)
         .then((res)=>{
             alert("Success")

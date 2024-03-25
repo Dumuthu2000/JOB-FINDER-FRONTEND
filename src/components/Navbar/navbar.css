@@ -1,9 +1,10 @@
 .navbarContainer{
-    background-color: black;
+    background-color: #1f2421;
     padding: 10px 20px 20px 20px;
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    /* opacity: 70%; */
 }
 .topSection{
     display: flex;
@@ -60,8 +61,8 @@
     border: none;
     border-radius: 5px;
     border: 3px solid #9ef01a;
-    background-color: #343a40;
-    color: #9ef01a;
+    /* background-color: #343a40; */
+    color: BLACK;
 }
 .navbarSearchBtn{
     padding: 10px;

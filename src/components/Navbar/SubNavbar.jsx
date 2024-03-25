@@ -1,7 +1,13 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const SubNavbar = () => {
+    const navigate = useNavigate();
+    const handleLogout=async()=>{
+        localStorage.removeItem("CompanyDetails")
+        localStorage.removeItem("JobDetails")
+        navigate('/');
+    }
   return (
     <div className='navbarContainer'>
         <div className="topSection">
@@ -18,7 +24,7 @@ const SubNavbar = () => {
                     <option value="candidateLogin">CANDIDATE RESGISTER</option>
                     <option value="companyLogin">COMPANY RESGISTER</option>
                 </select>
-                <button className='logoutBtn'>LOGOUT</button>
+                <button className='logoutBtn' onClick={handleLogout}>LOGOUT</button>
             </div>
         </div>
     </div>

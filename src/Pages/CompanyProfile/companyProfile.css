@@ -1,41 +1,49 @@
-body{
-    background-color: #edf2fb;
+body {
+    background-color: #ffffff;
+    overflow: hidden; /* Hide overflow from body */
+}
+
+.subNavbar {
+    position: fixed; /* Fix the SubNavbar at the top */
+    width: 100%;
+    z-index: 1000; /* Ensure it's above other content */
+}
+
+.pageConatiner {
+    overflow-y: auto; /* Allow vertical scrolling within the pageConatiner */
+    height: calc(100vh - 10px); /* Adjust height considering SubNavbar height */
+    padding-top: 60px; /* Ensure content doesn't get hidden behind the SubNavbar */
 }
 .prodileMainContainer{
     display: flex;
     justify-content: space-around;
-
 }
 .profileConatiner{
     width: 60%;
 }
 .publishTitle{
-    margin-top: 10px;
-    margin-left: 15rem;
-    color: #52796f;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    color: #6c757d;
+    text-transform: uppercase;
+    font-size: 35px;
 }
 .profileCard{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* background-color: rgba(0, 0.1, 0.1, 0.1); */
     background-color: white;
-    border: 4px solid #52796f;
-    box-shadow: 0px 4px 20px 4px rgba(0, 0, 0, 0.2);
     padding: 10px;
-    border-radius: 10px;
-    margin: 10px auto;
-    font-family: "Anta", sans-serif;
-}
-.shadowTitle{
-    position: absolute;
-    left: 21rem;
-    font-size: 54px;
-    opacity: 4%;
+    margin: 0px auto;
+    font-family: sans-serif;
+    padding-left: 30px;
+    border: 2px solid #b298dc;
+    border-radius: 5px;
+    background-color: #e3f2fd;
+    margin-bottom: 10px;
 }
 .profileCard:hover{
-    background-color: rgba(0, 0.1, 0.1, 0.1);
-    border: 4px solid #52796f;
+    border: 2px solid #a06cd5;
 }
 .cardProfile{
     width: 5rem;
@@ -53,17 +61,40 @@ body{
     border-radius: 5px;
     text-transform: uppercase;
 }
+.newJobBtn{
+    padding: 15px;
+    width: 12rem;
+    border: none;
+    background-color: #469d89;
+    color: white;
+    font-weight: bold;
+    font-size: 17px;
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.newJobBtn:hover{
+    background-color: rgba(0,0,0,0.9);
+}
 .welcomSection{
-    background-color: black;
-    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 2rem;
     padding: 5px;
+    text-transform: capitalize;
 }
 .welcomeTitle{
-    color: #9ef01a;
+    color:  #469d89;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 48px;
     margin-left: 13px;
     font-family: sans-serif;
+}
+.companyNameInWelcome{
+    font-size: 28px;
+    color: #b298dc;
+    text-transform: uppercase;
 }
 .editBtn{
     font-family: sans-serif;
@@ -95,32 +126,35 @@ body{
     background-color: rgba(0,0,0,0.8);
 }
 .profileDetailsBox{
-    background-color: #edf2fb;
+    /* background-color: #edf2fb; */
     padding: 5px 20px 20px 20px;
-    margin-top: 10px;
-    /* box-shadow: 0px 4px 20px 4px rgba(0, 0, 0, 0.4); */
-    border-radius: 10px;
-    border: 5px solid #52796f;
+    /* border: 1px solid grey; */
 }
 /*Profile Section*/
 .profileImage{
     width: 8rem;
     border-radius: 50%;
-    position:absolute;
-    top: 17rem;
-    right: 24rem;
+    margin-top: -2rem; /* Adjust as needed to position it over the background image */
+    margin-left: calc(50% - 18rem); /* Center horizontally */
     border: 5px solid #52796f;
+    position: relative;
+    z-index: 1; 
 }
 .backgroungImage{
-    margin-top: 10px;
+    margin-top: -4rem; 
     width: 30rem;
     height: 10rem;
     border-radius: 10px;
     border: 5px solid #52796f;
+   
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
 }
 .detailsSection{
     display: flex;
     flex-direction: column;
     gap: 01rem;
-    margin-top: 5rem;
+    margin-top: 2rem;
+    text-transform: uppercase;
 }

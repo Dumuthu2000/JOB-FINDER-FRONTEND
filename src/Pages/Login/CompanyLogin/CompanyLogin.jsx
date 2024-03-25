@@ -10,13 +10,20 @@ const CompanyLogin = () => {
     const[companyName, setCompanyName] = useState('');
 
     const navigate = useNavigate();
+
+    // nibm@gmail.com
+    // nibm5445
   
     useEffect(()=>{
       const formData = {companyName}
       axios.post(`http://localhost:8080/job-service/api/job-list`, formData)
       .then((res)=>{
         const jobs = res.data;
+        console.log('first call')
         localStorage.setItem("JobDetails", JSON.stringify(jobs));
+        if(companyName !== "") {
+          navigate('/company/profile')
+        }
       }).catch((err)=>{
         alert(err.message)
       })
@@ -28,9 +35,9 @@ const CompanyLogin = () => {
         .then((res)=>{
             // alert("Login Successfull")
             const companyDetails = res.data;
-            localStorage.setItem("CompantDetails", JSON.stringify(companyDetails));
+            localStorage.setItem("CompanyDetails", JSON.stringify(companyDetails));
             setCompanyName(companyDetails.companyName);
-            navigate('/company/profile')
+          
         }).catch((err)=>{
             alert(err.message);
             console.log(err.message)

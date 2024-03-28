@@ -11,32 +11,15 @@ const CompanyLogin = () => {
 
     const navigate = useNavigate();
 
-    // nibm@gmail.com
-    // nibm5445
-  
-    useEffect(()=>{
-      const formData = {companyName}
-      axios.post(`http://localhost:8080/job-service/api/job-list`, formData)
-      .then((res)=>{
-        const jobs = res.data;
-        console.log('first call')
-        localStorage.setItem("JobDetails", JSON.stringify(jobs));
-        if(companyName !== "") {
-          navigate('/company/profile')
-        }
-      }).catch((err)=>{
-        alert(err.message)
-      })
-    },[companyName])
-
     const handleLogin=async()=>{
         const formData = {email, password};
         await axios.post(`http://localhost:8080/company-service/api/company/login`, formData)
         .then((res)=>{
-            // alert("Login Successfull")
             const companyDetails = res.data;
             localStorage.setItem("CompanyDetails", JSON.stringify(companyDetails));
             setCompanyName(companyDetails.companyName);
+            const companyId = companyDetails.companyId;
+            navigate(`/company/profile/${companyId}`);
           
         }).catch((err)=>{
             alert(err.message);
@@ -48,7 +31,6 @@ const CompanyLogin = () => {
       <SubNavbar/>
       <div className="mainConatainer">
           <div className='loginContainer'>
-            
             <label htmlFor="">Email:</label>
             <input type="text" onChange={(e)=>{
               setEmail(e.target.value)

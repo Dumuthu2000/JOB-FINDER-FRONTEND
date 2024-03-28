@@ -1,38 +1,53 @@
 import { useEffect, useState } from 'react';
 import './companyProfile.css'
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SubNavbar from '../../components/Navbar/SubNavbar';
-import backImage from '../../assets/background.jpeg'
-import prodileImage from '../../assets/profile.jpeg'
-import JobUpdateModel from '../../components/Model/JobUpdateModel';
 import axios from 'axios';
 
 const CompanyProfile = () => {
-
-  const[modelDisplay, setModelDisplay] = useState('none');
   const[jobDetails, setJobDetails] = useState([]);
   const[companyDetails, setCompanyDetails] = useState({});
-  const[editJobDetails, setEditJobDetails] = useState({});
+  // const[editJobDetails, setEditJobDetails] = useState({});
 
-  useEffect(() => {
-    const storedData = localStorage.getItem("JobDetails")
-    const storedCompanyData = localStorage.getItem("CompanyDetails")
-    if(storedData || storedCompanyData){
-      setJobDetails(JSON.parse(storedData))
-      setCompanyDetails(JSON.parse(storedCompanyData))
-    }
-  }, []);
+  const { companyId } = useParams();
+  const navigate = useNavigate();
+
+useEffect(() => {
+  const getJobDetails=()=>{
+    axios.get(`http://localhost:8080/job-service/api/job-list/${companyId}`)
+    .then((res)=>{
+      console.log("this work")
+      setJobDetails(res.data)
+    }).catch((err)=>{
+      alert(err.message)
+    })
+  }
+  const getCompanyDetails=()=>{
+    axios.get(`http://localhost:8080/company-service/api/company/${companyId}`)
+    .then((res)=>{
+      setCompanyDetails(res.data)
+    }).catch((err)=>{
+      alert(err.message)
+    })
+  }
+  getJobDetails();
+  getCompanyDetails();
+}, [companyId, jobDetails]);
 
   const handleEditBtn=async(jobId)=>{
-    await axios.get(`http://localhost:8080/job-service/api/job/${jobId}`)
-    .then((res)=>{
-      setEditJobDetails(res.data);
-      setModelDisplay('block')
-    }).catch((err)=>{
-        alert(err.message)
-    })
-    
+    navigate(`/company/profile/${companyId}/${jobId}`)
   }
+
+  const handleDeleteBtn=async(jobId)=>{
+    await axios.delete(`http://localhost:8080/job-service/api/job/${jobId}`)
+    .then((res)=>{
+      alert("Deleted Successfully")
+    }).catch((err)=>{
+      alert(err.message)
+    })
+   }
+
   return (
     <div className="loginMainContainer">
       <div className='subNavbar'>
@@ -41,15 +56,15 @@ const CompanyProfile = () => {
       <div className='pageConatiner'>
         <div className="welcomSection">
           <h2 className='welcomeTitle'>Welcome, <span className='companyNameInWelcome'>Gapstars lab (pvt) ltd.</span></h2>
-          <button className='newJobBtn'>NEW JOB</button>
+          <Link to={`/job/createJob`}><button className='newJobBtn'>NEW JOB</button></Link>
           {/* <h2 className='welcomeTitle'>Welcome, <span className='companyNameInWelcome'>{companyDetails.companyName}</span></h2> */}
         </div>
         <div style={{display:'flex', alignItems:'center', justifyContent:'space-around'}}>
           <h1 className='publishTitle'>Published Job Vacancies</h1>
           <h1 className='publishTitle'>WHO ARE YOU?</h1>
         </div>
-        <div className="prodileMainContainer">
-            <div className='profileConatiner'>
+        <div className="prodileMainContainer" >
+            <div className='profileConatiner' >
               {jobDetails.map((jobs, index)=>(
                 <div className="profileCard" key={index}>
                   <div style={{display:"flex", alignItems:"center", gap:"1rem"}}>
@@ -70,12 +85,11 @@ const CompanyProfile = () => {
                   <p className="workTime">{jobs.workTime}</p>
                   <div className=''>
                     <button className='editBtn' onClick={()=>handleEditBtn(jobs.jobId)}>Edit</button>
-                    <button className='deleteBtn'>Delete</button>
+                    <button className='deleteBtn' onClick={()=>handleDeleteBtn(jobs.jobId)}>Delete</button>
                   </div>
               </div>
               ))}
           </div>
-          <JobUpdateModel modelDisplay={modelDisplay} jobData={editJobDetails} />
           <div className="profileDetailsBox">
             <div className="imageSection">
             <img src={companyDetails.profileImage} alt="" className='profileImage'/>

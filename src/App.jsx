@@ -6,6 +6,10 @@ import CreateCompany from './Pages/Comapny/CreateCompany'
 import CompanyLogin from './Pages/Login/CompanyLogin/CompanyLogin'
 import CompanyProfile from './Pages/CompanyProfile/CompanyProfile'
 import JobUpdateModel from './components/Model/JobUpdateModel'
+import CreateJobSeeker from './Pages/JobSeeker/CreateJobSeeker'
+import JobSeekerLogin from './Pages/Login/JobSeekerLogin.jsx/JobSeekerLogin'
+import ViewJob from './Pages/Job/ViewJob'
+// import AddApplication from './Pages/Application/AddApplication'
 
 function App() {
   return (
@@ -16,10 +20,14 @@ function App() {
           <Route path='/job/createJob' element={<CreateJob/>}/>
           <Route path='/company/createCompany' element={<CreateCompany/>}/>
           <Route path='/company/login' element={<CompanyLogin/>}/>
-          <Route path='/company/profile' element={<CompanyProfile/>}/>
+          <Route path='/company/profile/:companyId' element={<CompanyProfile/>}/>
+          <Route path='/company/profile/:companyId/:jobId' element={<JobUpdateModel/>}/>
+          <Route path='/job-seeker/register' element={<CreateJobSeeker/>}/>
+          <Route path='/job-seeker/login' element={<JobSeekerLogin/>}/>
+          <Route path='/job/:jobId' element={<ViewJob/>}/>
+          {/* <Route path='/job/application/:jobId' element={<AddApplication/>}/> */}
         </Routes>
       </BrowserRouter>
-      {/* <JobUpdateModel/> */}
     </div>
   )
 }

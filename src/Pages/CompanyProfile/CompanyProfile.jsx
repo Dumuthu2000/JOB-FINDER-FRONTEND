@@ -55,7 +55,7 @@ useEffect(() => {
       </div>
       <div className='pageConatiner'>
         <div className="welcomSection">
-          <h2 className='welcomeTitle'>Welcome, <span className='companyNameInWelcome'>Gapstars lab (pvt) ltd.</span></h2>
+          <h2 className='welcomeTitle'>Welcome, <span className='companyNameInWelcome'>{companyDetails.companyName}</span></h2>
           <Link to={`/job/createJob`}><button className='newJobBtn'>NEW JOB</button></Link>
           {/* <h2 className='welcomeTitle'>Welcome, <span className='companyNameInWelcome'>{companyDetails.companyName}</span></h2> */}
         </div>
@@ -74,15 +74,15 @@ useEffect(() => {
                         <p className="jobTitle">{jobs.companyName}</p>
                       </div>
                   </div>
-                  <div style={{display:"flex", alignItems:"center", gap:"1rem"}}>
+                  {/* <div style={{display:"flex", alignItems:"center", gap:"1rem"}}>
                       <LocationOnIcon htmlColor='red'/>
                       <p className="">{jobs.location}</p>
-                  </div>
+                  </div> */}
                   <div>
                       <p>Expires On</p>
                       <p className="">{jobs.deadline}</p>
                   </div>
-                  <p className="workTime">{jobs.workTime}</p>
+                  {/* <p className="workTime">{jobs.workTime}</p> */}
                   <div className=''>
                     <button className='editBtn' onClick={()=>handleEditBtn(jobs.jobId)}>Edit</button>
                     <button className='deleteBtn' onClick={()=>handleDeleteBtn(jobs.jobId)}>Delete</button>

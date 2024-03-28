@@ -73,9 +73,9 @@ const JobUpdateModel = () => {
                 </div>
                 <div className="jobInput">
                     <label htmlFor="">Job Description: </label>
-                    <input type="text" value={description} onChange={(e)=>{
+                    <pre><textarea name="" id="" cols="30" rows="10" value={description} onChange={(e)=>{
                         setDescription(e.target.value)
-                    }} className="jobInputs"/>
+                    }} className="jobInputs"></textarea></pre>
                 </div>
                 <div className="jobInput">
                     <label htmlFor="">Job Category: </label>

@@ -59,9 +59,9 @@ const CreateJob = (props) => {
                 </div>
                 <div className="jobInput">
                     <label htmlFor="">Job Description: </label>
-                    <input type="text" onChange={(e)=>{
+                    <p><textarea name="" id="" cols="30" rows="10" onChange={(e)=>{
                         setDescription(e.target.value)
-                    }} className="jobInputs"/>
+                    }} className="jobInputs"></textarea></p>
                 </div>
                 <div className="jobInput">
                     <label htmlFor="">Job Category: </label>

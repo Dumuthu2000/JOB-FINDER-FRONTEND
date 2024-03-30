@@ -5,6 +5,7 @@ import axios from 'axios'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import SubNavbar from '../../components/Navbar/SubNavbar';
+import Footer from '../../components/Footer/Footer';
 
 const CreateJob = (props) => {
     const [title, setTitle] = useState("");
@@ -88,6 +89,7 @@ const CreateJob = (props) => {
                     <select onChange={(e)=>{
                         setWorkTime(e.target.value)
                     }} className="jobInputs">
+                        <option value="">Select work time</option>
                         <option value="Full Time">Full Time</option>
                         <option value="Half time">Half Time</option>
                         <option value="Remote">Remote</option>
@@ -118,6 +120,7 @@ const CreateJob = (props) => {
                 </div>
                 </form>
             </div>
+            <Footer/>
         </div>
     </div>
   )

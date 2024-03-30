@@ -5,17 +5,20 @@ import axios from "axios";
 import Navbar from "../../components/Navbar/Navbar";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import profImage from "../../assets/profile.png";
+import Footer from "../../components/Footer/Footer";
 
 const Home = () => {
   const [jobDetails, setJobDetails] = useState([]);
   const [postedJobs, setPostedJobs] = useState(0);
   const [postedCompanies, setPostedCompanies] = useState(0);
   const [postedCandidate, setPostedCandidate] = useState(0);
+  const [postedApplication, setPostedApplication] = useState(0);
 
   useEffect(() => {
     let i = 1;
     let j = 1;
     let k = 1;
+    let l = 1;
     const timer = setInterval(() => {
       setPostedJobs(i);
       i++;
@@ -37,19 +40,25 @@ const Home = () => {
         clearInterval(timer2);
       }
     }, 30);
+    const timer3 = setInterval(() => {
+      setPostedApplication(l);
+      l++;
+      if (l > 130) {
+        clearInterval(timer3);
+      }
+    }, 30);
     return () => {
       clearInterval(timer);
       clearInterval(timer1);
       clearInterval(timer2);
+      clearInterval(timer3);
     };
   }, []);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/job-service/api/jobs`)
+    axios.get(`http://localhost:8080/job-service/api/jobs`)
       .then((res) => {
         setJobDetails(res.data);
-        console.log(res.data);
       })
       .catch((err) => {
         alert(err.message);
@@ -76,7 +85,7 @@ const Home = () => {
               <p className="numberName">Candidates</p>
             </div>
             <div className="numberBox">
-              <h1 className="number">{postedCandidate}</h1>
+              <h1 className="number">{postedApplication}</h1>
               <p className="numberName">Job Applications</p>
             </div>
           </div>
@@ -125,39 +134,32 @@ const Home = () => {
               <h1 className="title">JOB CATEGORIES</h1>
               <div className="categoryContent" id="nextContent">
                 <p className="category">Information Technology (IT)</p>
-                <p className="categoryAmount">100</p>
+                <p className="categoryAmount">25</p>
               </div>
               <div className="categoryContent">
                 <p className="category">Sales and Marketing</p>
-                <p className="categoryAmount">100</p>
+                <p className="categoryAmount">10</p>
               </div>
               <div className="categoryContent" id="nextContent">
                 <p className="category">Business Management</p>
-                <p className="categoryAmount">100</p>
+                <p className="categoryAmount">05</p>
               </div>
               <div className="categoryContent">
                 <p className="category">School Leavers</p>
-                <p className="categoryAmount">100</p>
+                <p className="categoryAmount">15</p>
               </div>
               <div className="categoryContent" id="nextContent">
                 <p className="category">Internship / Undergraduate</p>
-                <p className="categoryAmount">100</p>
+                <p className="categoryAmount">23</p>
               </div>
               <div className="categoryContent">
                 <p className="category">Digital Marketing</p>
-                <p className="categoryAmount">100</p>
-              </div>
-              <div className="categoryContent" id="nextContent">
-                <p className="category">IT & Technology</p>
-                <p className="categoryAmount">100</p>
-              </div>
-              <div className="categoryContent">
-                <p className="category">IT & Technology</p>
-                <p className="categoryAmount">100</p>
+                <p className="categoryAmount">26</p>
               </div>
             </div>
           </div>
         </div>
+        <Footer/>
       </div>
     </div>
   );

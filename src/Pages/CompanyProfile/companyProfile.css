@@ -28,13 +28,14 @@ body {
     margin: 0px auto;
     font-family: sans-serif;
     padding-left: 30px;
-    border: 2px solid #b298dc;
+    border: 2px solid #2d6a4f;
     border-radius: 5px;
-    background-color: #e3f2fd;
+    background-color: #d8f3dc;
     margin-bottom: 10px;
+    color: black;
 }
 .profileCard:hover{
-    border: 2px solid #a06cd5;
+    background-color: rgba(0,0,0,0.1);
 }
 .cardProfile{
     width: 5rem;
@@ -42,7 +43,7 @@ body {
     border-radius: 15px;
 }
 .workTime{
-    background-color: blueviolet;
+    background-color: #2d6a4f;
     font-family: sans-serif;
     padding: 8px;
     color: white;

@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Footer from '../Footer/Footer';
 
 const JobUpdateModel = () => {
     const[jobDetails, setJobDetails] = useState({});
@@ -46,7 +47,7 @@ const JobUpdateModel = () => {
         const updateData = {jobId, title, description, category, requirements, workTime, companyName, deadline, location, companyId}
         await axios.put(`http://localhost:8080/job-service/api/job/updateJob`, updateData)
         .then((res)=>{
-            navigate(`/company/profile/${companyId}`)
+            navigate(`/company/job/${jobId}`)
         }).catch((err)=>{
             alert(err.message)
         })
@@ -54,7 +55,7 @@ const JobUpdateModel = () => {
 
     const handleBackBtn=async(e)=>{
         e.preventDefault();
-        navigate(`/company/profile/${companyId}`)
+        navigate(`/company/job/${jobId}`)
     }
   return (
     <div className="loginMainContainer">
@@ -132,6 +133,7 @@ const JobUpdateModel = () => {
                 </div>
                 </form>
             </div>
+            <Footer/>
         </div>
     </div>
   )

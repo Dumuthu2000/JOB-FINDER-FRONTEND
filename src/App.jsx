@@ -9,7 +9,7 @@ import JobUpdateModel from './components/Model/JobUpdateModel'
 import CreateJobSeeker from './Pages/JobSeeker/CreateJobSeeker'
 import JobSeekerLogin from './Pages/Login/JobSeekerLogin.jsx/JobSeekerLogin'
 import ViewJob from './Pages/Job/ViewJob'
-// import AddApplication from './Pages/Application/AddApplication'
+import SelectedJob from './Pages/Comapny/SelectedJob'
 
 function App() {
   return (
@@ -25,7 +25,7 @@ function App() {
           <Route path='/job-seeker/register' element={<CreateJobSeeker/>}/>
           <Route path='/job-seeker/login' element={<JobSeekerLogin/>}/>
           <Route path='/job/:jobId' element={<ViewJob/>}/>
-          {/* <Route path='/job/application/:jobId' element={<AddApplication/>}/> */}
+          <Route path='/company/job/:jobId' element={<SelectedJob/>}/>
         </Routes>
       </BrowserRouter>
     </div>

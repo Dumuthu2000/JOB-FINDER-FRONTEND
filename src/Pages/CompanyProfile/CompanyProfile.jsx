@@ -4,6 +4,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SubNavbar from '../../components/Navbar/SubNavbar';
 import axios from 'axios';
+import Footer from '../../components/Footer/Footer';
 
 const CompanyProfile = () => {
   const[jobDetails, setJobDetails] = useState([]);
@@ -35,19 +36,10 @@ useEffect(() => {
   getCompanyDetails();
 }, [companyId, jobDetails]);
 
-  const handleEditBtn=async(jobId)=>{
-    navigate(`/company/profile/${companyId}/${jobId}`)
-  }
 
-  const handleDeleteBtn=async(jobId)=>{
-    await axios.delete(`http://localhost:8080/job-service/api/job/${jobId}`)
-    .then((res)=>{
-      alert("Deleted Successfully")
-    }).catch((err)=>{
-      alert(err.message)
-    })
+   const handleJobLink=async(jobId)=>{
+    navigate(`/company/job/${jobId}`)
    }
-
   return (
     <div className="loginMainContainer">
       <div className='subNavbar'>
@@ -66,7 +58,7 @@ useEffect(() => {
         <div className="prodileMainContainer" >
             <div className='profileConatiner' >
               {jobDetails.map((jobs, index)=>(
-                <div className="profileCard" key={index}>
+                <div className="profileCard" key={index} onClick={()=>{handleJobLink(jobs.jobId)}}>
                   <div style={{display:"flex", alignItems:"center", gap:"1rem"}}>
                       <img src={companyDetails.profileImage} alt="" className='cardProfile'/>
                       <div>
@@ -74,19 +66,15 @@ useEffect(() => {
                         <p className="jobTitle">{jobs.companyName}</p>
                       </div>
                   </div>
-                  {/* <div style={{display:"flex", alignItems:"center", gap:"1rem"}}>
+                  <div style={{display:"flex", alignItems:"center", gap:"1rem"}}>
                       <LocationOnIcon htmlColor='red'/>
                       <p className="">{jobs.location}</p>
-                  </div> */}
+                  </div>
                   <div>
                       <p>Expires On</p>
                       <p className="">{jobs.deadline}</p>
                   </div>
-                  {/* <p className="workTime">{jobs.workTime}</p> */}
-                  <div className=''>
-                    <button className='editBtn' onClick={()=>handleEditBtn(jobs.jobId)}>Edit</button>
-                    <button className='deleteBtn' onClick={()=>handleDeleteBtn(jobs.jobId)}>Delete</button>
-                  </div>
+                  <p className="workTime">{jobs.workTime}</p>
               </div>
               ))}
           </div>
@@ -105,6 +93,7 @@ useEffect(() => {
             </div>
           </div>
         </div>
+        <Footer/>
       </div>
     </div>
   )

@@ -17,7 +17,7 @@
     /* background-color: #e3f2fd; */
     padding: 10px;
     width: 30rem;
-    border: 3px solid #b298dc;
+    border: 3px solid #2d6a4f;
     border-radius: 5px;
     margin-bottom: 2px;
 }
@@ -38,6 +38,11 @@
 }
 .numberName{
     font-size: 18px;
+    font-weight: bold;
+    
+}
+.category{
+    color: #2d6a4f;
     font-weight: bold;
 }
 .number{

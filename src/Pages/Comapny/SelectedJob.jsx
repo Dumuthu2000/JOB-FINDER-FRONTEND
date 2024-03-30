@@ -1,20 +1,23 @@
-import './viewJob.css'
+
+import './selectedJob.css'
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import SubNavbar from '../../components/Navbar/SubNavbar';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
-import AddApplication from '../Application/AddApplication'
+import ViewApplication from '../Application/ViewApplication';
 import Footer from '../../components/Footer/Footer';
 
-const ViewJob = () => {
+const SelectedJob = () => {
     const{ jobId } = useParams();
     const[jobDetails, setJobDetails] = useState({})
     const[companyDetails, setCompanyDetails] = useState({})
     const[companyId, setCompanyId] = useState(null)
+    const[resume, setResume] = useState(0)
 
     const[viewOverlay, setViewOverlay] = useState('none');
+    const[applications, setApplications] = useState([]);
 
     const[jobSeekerId, setJobSeekerId] = useState(() => {
         const storedData = localStorage.getItem("jobSeekerDetails");
@@ -30,7 +33,16 @@ const ViewJob = () => {
                 setCompanyId(res.data.companyId)
             })
         }
+        const nuOfResume=()=>{
+            axios.get(`http://localhost:8080/application-service/api/application-count/${jobId}`)
+            .then((res)=>{
+                setResume(res.data)
+            }).catch((err)=>{
+                alert(err.message)
+            })
+        }
         getJobDetails();
+        nuOfResume();
     },[companyId])
 
     useEffect(()=>{
@@ -43,15 +55,26 @@ const ViewJob = () => {
         getCompanyDetails();
     },[companyId])
 
-    const handleApplyBtn=async()=>{
-        
-        if(jobSeekerId){
+    const handleApplicationsBtn=async()=>{       
+        await axios.get(`http://localhost:5003/application-service/api/applications/${jobId}`)
+        .then((res)=>{
+            setApplications(res.data);
             setViewOverlay('block')
-            // navigate(`/job/application/${jobDetails.jobId}`)
-        }else{
-            navigate(`/job-seeker/login`)
-        }
+        }).catch((err)=>{
+            alert(err.message)
+        })
     }
+    const handleEditBtn=async()=>{
+        navigate(`/company/profile/${companyId}/${jobId}`)
+    }
+    const handleDeleteBtn=async()=>{
+        await axios.delete(`http://localhost:8080/job-service/api/job/${jobId}`)
+        .then((res)=>{
+          navigate(`/company/profile/${companyId}`)
+        }).catch((err)=>{
+          alert(err.message)
+        })
+       }
   return (
     <div className="loginMainContainer">
         <SubNavbar/>
@@ -64,7 +87,7 @@ const ViewJob = () => {
                         <h2 className='jobName'>{jobDetails.companyName}</h2>
                     </div>
                 </div>
-                <AddApplication modelView={viewOverlay}/>
+                <ViewApplication application={applications} resumeModelView={viewOverlay}/>
                 <div className='overlay' style={{display:viewOverlay}}></div>
                 <div className='secondSection'>
                     <div style={{display:'flex', alignItems:'center', gap:'5px', marginLeft:'2rem'}}>
@@ -80,7 +103,10 @@ const ViewJob = () => {
                         <p className='deadline'>{jobDetails.deadline}</p>
                     </div>
                     <div style={{marginLeft:'2rem'}}>
-                        <button className='applyBtn' onClick={handleApplyBtn}>APPLY FOR JOB</button>
+                        <p className='resumies'>{resume}</p>
+                        <button className='applicationsBtn' onClick={handleApplicationsBtn} style={{marginRight:'10px'}}>Applications</button>
+                        <button className='editedBtn' onClick={handleEditBtn} style={{marginRight:'10px'}}>Edit</button>
+                        <button className='deletedBtn' onClick={handleDeleteBtn} >Delete</button>
                     </div>
                 </div>
                 <div className="descriptionBox">
@@ -94,9 +120,8 @@ const ViewJob = () => {
             </div>
             <Footer/>
         </div>
-        
     </div>
   )
 }
 
-export default ViewJob
+export default SelectedJob

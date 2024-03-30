@@ -18,7 +18,6 @@ useEffect(() => {
   const getJobDetails=()=>{
     axios.get(`http://localhost:8080/job-service/api/job-list/${companyId}`)
     .then((res)=>{
-      console.log("this work")
       setJobDetails(res.data)
     }).catch((err)=>{
       alert(err.message)
@@ -62,7 +61,7 @@ useEffect(() => {
                   <div style={{display:"flex", alignItems:"center", gap:"1rem"}}>
                       <img src={companyDetails.profileImage} alt="" className='cardProfile'/>
                       <div>
-                        <p className="jobTitle">{jobs.title}</p>
+                        <p className="jobTitle" style={{fontWeight:'bold'}}>{jobs.title}</p>
                         <p className="jobTitle">{jobs.companyName}</p>
                       </div>
                   </div>

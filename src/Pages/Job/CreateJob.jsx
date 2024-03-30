@@ -1,5 +1,5 @@
 import './createJob.css'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import DatePicker from "react-datepicker";
@@ -7,7 +7,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import SubNavbar from '../../components/Navbar/SubNavbar';
 import Footer from '../../components/Footer/Footer';
 
-const CreateJob = (props) => {
+const CreateJob = () => {
+    const[companyDetails, setCompanyDetails] = useState({})
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState("");
@@ -16,6 +17,7 @@ const CreateJob = (props) => {
     const [companyName, setCompanyName] = useState("");
     const [deadline, setDeadline] = useState("");
     const [location, setLocation] = useState("");
+    const [profileImage, setProfileImage] = useState(companyDetails.profileImage);
 
     const navigate = useNavigate();
 
@@ -23,10 +25,21 @@ const CreateJob = (props) => {
         const storedData = localStorage.getItem("CompanyDetails");
         return storedData ? JSON.parse(storedData) : null;
     });
+    console.log(companyId)
+    useEffect(()=>{
+        const cId = companyId.companyId;
+        axios.get(`http://localhost:8080/company-service/api/company/${cId}`)
+        .then((res)=>{
+            console.log(res.data)
+            setCompanyDetails(res.data)
+        }).catch((err)=>{
+            alert(err.message)
+        })
+    },[companyId])
 
     const handleSubmit=async(e)=>{
         e.preventDefault();
-        const formData ={title, description, category, requirements, workTime, companyName, deadline, location, companyId:companyId.companyId}
+        const formData ={title, description, category, requirements, workTime, companyName: companyDetails.companyName, deadline, location: companyDetails.location, companyId:companyId.companyId,  profileImage: companyDetails.profileImage}
         await axios.post(`http://localhost:8080/job-service/api/jobs`, formData)
         .then((res)=>{
             const cId = companyId.companyId;
@@ -98,7 +111,7 @@ const CreateJob = (props) => {
                 </div>
                 <div className="jobInput">
                     <label htmlFor="">Job Company Name: </label>
-                    <input type="text" onChange={(e)=>{
+                    <input disabled value={companyDetails.companyName} type="text" onChange={(e)=>{
                         setCompanyName(e.target.value)
                     }} className="jobInputs"/>
                 </div>
@@ -110,7 +123,7 @@ const CreateJob = (props) => {
                 </div>
                 <div className="jobInput">
                     <label htmlFor="">Job Location: </label>
-                    <input type="text" onChange={(e)=>{
+                    <input disabled value={companyDetails.location} type="text" onChange={(e)=>{
                         setLocation(e.target.value)
                     }} className="jobInputs"/>
                 </div>

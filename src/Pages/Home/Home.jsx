@@ -6,6 +6,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import profImage from "../../assets/profile.png";
 import Footer from "../../components/Footer/Footer";
+import logo from '../../assets/logo.jpg'
 
 const Home = () => {
   const [jobDetails, setJobDetails] = useState([]);
@@ -105,9 +106,9 @@ const Home = () => {
                         gap: "1rem",
                       }}
                     >
-                      <img src={profImage} alt="" className="cardProfile" />
+                      <img src={jobs.profileImage} alt="" className="cardProfile" />
                       <div>
-                        <p className="jobTitle">{jobs.title}</p>
+                        <p className="jobTitle" style={{fontWeight:'bold'}}>{jobs.title}</p>
                         <p className="jobTitle">{jobs.companyName}</p>
                       </div>
                     </div>
@@ -123,7 +124,7 @@ const Home = () => {
                     </div>
                     <div>
                       <p>Expires On</p>
-                      <p className="">{jobs.deadline}</p>
+                      <p className="" style={{fontWeight:'bold', color:'#2d6a4f'}}>{jobs.deadline}</p>
                     </div>
                     <p className="workTime">{jobs.workTime}</p>
                   </div>
